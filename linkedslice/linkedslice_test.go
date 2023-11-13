@@ -167,9 +167,13 @@ func Test_LinkedSlice_Iterator(t *testing.T) {
 		intSlice := GenerateIntegerSlice(cs.itemsCount)
 		ls := linkedslice.MakeLinkedSlice[int](0, 10)
 		ls.AddItems(intSlice...)
+
+		var counter int
 		var iterableFunc = func(index, item int) {
 			assert.Equal(t, intSlice[index], item)
+			counter++
 		}
 		ls.Iterator().Iterate(iterableFunc)
+		assert.Equal(t, cs.itemsCount, counter)
 	}
 }
