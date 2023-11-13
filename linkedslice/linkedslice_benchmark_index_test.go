@@ -28,6 +28,14 @@ func BenchmarkLinkedSliceItemByIndex(b *testing.B) {
 	ls.AddItems(items...)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		_ = ls.Item(i)
+		ls.Item(i)
 	}
+}
+
+func BenchmarkLinkedSliceIterator(b *testing.B) {
+	ls := linkedslice.MakeLinkedSlice[int](0, 10)
+	items := GenerateIntegerSlice(b.N)
+	ls.AddItems(items...)
+	b.ResetTimer()
+	ls.Iterator().Iterate(func(index, item int) {})
 }
