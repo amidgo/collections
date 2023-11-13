@@ -10,9 +10,9 @@ type LinkedSlice[T any] struct {
 	nodes    *nodes[T]
 }
 
-func MakeLinkedSlice[T any](len, cap int) LinkedSlice[T] {
+func MakeLinkedSlice[T any](len, cap int) *LinkedSlice[T] {
 	initNode := makeNode[T](0, len, cap)
-	return LinkedSlice[T]{
+	return &LinkedSlice[T]{
 		len:   len,
 		cap:   cap,
 		nodes: makeNodes[T](initNode),
@@ -29,9 +29,10 @@ func (l *LinkedSlice[T]) Cap() int {
 
 func (l *LinkedSlice[T]) Swap(firstIndex, secondIndex int) {
 	firstItem := l.Item(firstIndex)
+	l.SetItem(secondIndex, firstItem)
+
 	secondItem := l.Item(secondIndex)
 	l.SetItem(firstIndex, secondItem)
-	l.SetItem(secondIndex, firstItem)
 }
 
 func (l *LinkedSlice[T]) SetItem(index int, item T) {

@@ -34,6 +34,44 @@ func addPointersToLinkedSlice(x int) {
 	}
 }
 
+func BenchmarkMakeSlice(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		s := make([]int, 0, 10)
+		_ = s
+	}
+}
+
+func BenchmarkMakeLinkedSlice(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		ls := linkedslice.MakeLinkedSlice[int](0, 10)
+		_ = ls
+	}
+}
+
+func BenchmarkSliceAdd_100(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		addIntegersToSlice(100)
+	}
+}
+
+func BenchmarkLinkedSliceAdd_100(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		addIntegersToLinkedSlice(100)
+	}
+}
+
+func BenchmarkSliceAdd_1000(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		addIntegersToSlice(1000)
+	}
+}
+
+func BenchmarkLinkedSliceAdd_1000(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		addIntegersToLinkedSlice(1000)
+	}
+}
+
 func BenchmarkSliceAdd_10000(b *testing.B) {
 	for i := 0; i < b.N; i++ {
 		addIntegersToSlice(10000)
