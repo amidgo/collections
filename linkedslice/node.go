@@ -5,8 +5,10 @@ type nodes[T any] struct {
 }
 
 func makeNodes[T any](initNode node[T]) nodes[T] {
+	items := make([]node[T], 0, 16)
+	items = append(items, initNode)
 	return nodes[T]{
-		items: []node[T]{initNode},
+		items: items,
 	}
 }
 
