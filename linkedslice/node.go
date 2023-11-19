@@ -1,29 +1,29 @@
 package linkedslice
 
 type nodes[T any] struct {
-	items []*node[T]
+	items []node[T]
 }
 
-func makeNodes[T any](initNode *node[T]) *nodes[T] {
-	return &nodes[T]{
-		items: []*node[T]{initNode},
+func makeNodes[T any](initNode node[T]) nodes[T] {
+	return nodes[T]{
+		items: []node[T]{initNode},
 	}
 }
 
 func (n *nodes[T]) InitNode() *node[T] {
-	return n.items[0]
+	return &n.items[0]
 }
 
 func (n *nodes[T]) LastNode() *node[T] {
-	nodeCount := len(n.items) - 1
-	return n.items[nodeCount]
+	lastNodeIndex := len(n.items) - 1
+	return &n.items[lastNodeIndex]
 }
 
 func (n *nodes[T]) Node(index int) *node[T] {
-	return n.items[index]
+	return &n.items[index]
 }
 
-func (n *nodes[T]) AddNode(node *node[T]) {
+func (n *nodes[T]) AddNode(node node[T]) {
 	n.items = append(n.items, node)
 }
 
@@ -32,8 +32,8 @@ type node[T any] struct {
 	offset int
 }
 
-func makeNode[T any](offset, len, cap int) *node[T] {
-	return &node[T]{
+func makeNode[T any](offset, len, cap int) node[T] {
+	return node[T]{
 		offset: offset,
 		items:  make([]T, len, cap),
 	}

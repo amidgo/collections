@@ -7,7 +7,7 @@ import (
 
 type LinkedSlice[T any] struct {
 	len, cap int
-	nodes    *nodes[T]
+	nodes    nodes[T]
 }
 
 func MakeLinkedSlice[T any](len, cap int) *LinkedSlice[T] {
@@ -29,9 +29,8 @@ func (l *LinkedSlice[T]) Cap() int {
 
 func (l *LinkedSlice[T]) Swap(firstIndex, secondIndex int) {
 	firstItem := l.Item(firstIndex)
-	l.SetItem(secondIndex, firstItem)
-
 	secondItem := l.Item(secondIndex)
+	l.SetItem(secondIndex, firstItem)
 	l.SetItem(firstIndex, secondItem)
 }
 
